@@ -1,4 +1,4 @@
-<div *ngIf="user.role === 'SUPERADMIN' || user.role === 'ADMIN' || user.role === 'PARTNER'">
+<div *ngIf="user.role === 'ADMIN'  || user.role === 'GUARDIA'">
     <app-dashboard-admin></app-dashboard-admin>
 </div>
 <div *ngIf=" user.role === 'USER' ">
