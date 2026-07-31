@@ -31,7 +31,7 @@ export class AuthService {
     return localStorage.getItem('token') || '';
   }
 
-  get role(): 'SUPERADMIN' | 'ADMIN' | 'USER' | 'PARTNER' {
+  get role(): 'PROPIETARIO' | 'ADMIN' | 'GUARDIA' | 'VISITA' {
     return this.usuario.role;
   }
 
@@ -67,6 +67,10 @@ export class AuthService {
         // Create User instance from parsed data (match JSON shape)
         this.usuario = new User(
           userData.username || '',
+          userData.first_name || '',
+          userData.last_name || '',
+          userData.numdoc || '',
+          userData.telefono || '',
           userData.email || '',
           userData.terminos || false,
           undefined,  // password not stored
@@ -151,9 +155,9 @@ crearUsuario(formData: RegisterForm){
       }
     }).pipe(
       map((resp: any) => {
-        const { username, email, google, role, uid } = resp.usuario;
+        const { first_name, last_name, username, numdoc, telefono, email, google, role, uid } = resp.usuario;
 
-        this.usuario = new User(username, email, !!google, undefined, !!google, role, uid);
+        this.usuario = new User(first_name, last_name,username, numdoc, telefono, email, !!google, undefined, !!google, role, uid);
         this.guardarLocalStorage(resp.token, resp.usuario);
         return true;
       }),

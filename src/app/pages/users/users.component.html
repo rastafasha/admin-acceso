@@ -66,10 +66,10 @@
                                             <td>{{user.email}}</td>
                                             <td>
                                                 <!-- {{user.role }}  -->
-                                                <span class="badge bg-dark" *ngIf="user.role === 'SUPERADMIN'">SuperAdmin</span>
+                                                <span class="badge bg-dark" *ngIf="user.role === 'PROPIETARIO'">Propietario</span>
                                                 <span class="badge bg-primary" *ngIf="user.role === 'ADMIN'">Admin</span>
-                                                <span class="badge bg-success" *ngIf="user.role === 'PARTNER'">Socio</span>
-                                                <span class="badge bg-danger" *ngIf="user.role === 'USER'">Invitado</span>
+                                                <span class="badge bg-success" *ngIf="user.role === 'GUARDIA'">Guardia</span>
+                                                <span class="badge bg-danger" *ngIf="user.role === 'VISITA'">Invitado</span>
                                             </td>
                                             <td>
                                                 <span *ngIf="user.google" class="label label-danger">Google</span>
