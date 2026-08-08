@@ -1,4 +1,4 @@
-import { Ubicacion } from "./ubicacion";
+import { Empresa } from "./empresa";
 export class User {
 
   constructor(
@@ -9,7 +9,7 @@ export class User {
     public email: string,
     public activo: boolean,
     public terminos: boolean,
-    public ubicacionId?: Ubicacion,
+    public empresaId?: Empresa,
     public password?: string,
     public google?: boolean,
     public role?: 'PROPIETARIO' | 'ADMIN' | 'GUARDIA' | 'VISITA' |'EMPLEADO' ,

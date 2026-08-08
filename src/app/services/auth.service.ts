@@ -66,7 +66,7 @@ export class AuthService {
         const userData = JSON.parse(userStr);
         // Create User instance from parsed data (match JSON shape)
         this.usuario = new User(
-          userData.ubicacionId || '',
+          userData.empresaId || '',
           userData.first_name || '',
           userData.last_name || '',
           userData.numdoc || '',
@@ -156,9 +156,9 @@ crearUsuario(formData: RegisterForm){
       }
     }).pipe(
       map((resp: any) => {
-        const { first_name, last_name, username,  activo, numdoc, telefono, email,  ubicacionId, google, role, uid } = resp.usuario;
+        const { first_name, last_name, username,  activo, numdoc, telefono, email,  empresaId, google, role, uid } = resp.usuario;
 
-        this.usuario = new User(first_name, last_name,username,  activo, numdoc, telefono, email, ubicacionId,  undefined, !!google, role, uid);
+        this.usuario = new User(first_name, last_name,username,  activo, numdoc, telefono, email, empresaId,  undefined, !!google, role, uid);
         this.guardarLocalStorage(resp.token, resp.usuario);
         return true;
       }),

@@ -63,7 +63,7 @@ export class EmpEditComponent {
       changes['empresaSeleccionado'] &&
       changes['empresaSeleccionado'].currentValue
     ) {
-      this.title = 'Editando Empresa';
+      this.title = 'Editando Empresas/Conj.Residencial';
       const empresa = changes['empresaSeleccionado'].currentValue;
       
       this.empresaForm.patchValue({
@@ -78,9 +78,9 @@ export class EmpEditComponent {
         
       });
       this.empresaSeleccionado = empresa;
-      this.title = 'Editando Empresa';
+      this.title = 'Editando Empresas/Conj.Residencial';
     } else {
-      this.title = 'Editando Empresa';
+      this.title = 'Editando Empresas/Conj.Residencial';
     }
 
   }
@@ -102,7 +102,7 @@ export class EmpEditComponent {
     this.empresaSeleccionado = null;
     this.currentStep = 1;
     this.empresaForm.reset();
-    this.title = 'Creando Empresa';
+    this.title = 'Creando Empresas/Conj.Residencial';
     // Also reset default values if needed
     this.empresaForm.patchValue({
       nombre: null,

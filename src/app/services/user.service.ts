@@ -83,7 +83,7 @@ export class UserService {
               user.email,
               user.terminos,
               user.activo,
-              user.ubicacionId,
+              user.empresaId,
               '',
               user.google,
               user.role,

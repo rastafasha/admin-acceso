@@ -1,13 +1,9 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Empresa } from 'src/app/models/empresa';
-import { Pais } from 'src/app/models/pais.model';
-import { Ubicacion } from 'src/app/models/ubicacion';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
-import { PaisService } from 'src/app/services/pais.service';
-import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 declare var bootstrap: any;
@@ -39,13 +35,13 @@ export class ProfileEditComponent {
   currentStep = 1;
   cargandoImagen = false;
   projectExiste: boolean = false;
-  ubicaciones:Ubicacion;
+  empresas:Empresa;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private ubicacionService: UbicacionService,
+    private empresaService: EmpresaService,
   ) {
 
   }
@@ -53,12 +49,12 @@ export class ProfileEditComponent {
   ngOnInit(): void {
     this.usuario = this.authService.getLocalStorage();
     this.validarFormulario();
-    this.getUbicaciones();
+    this.getUEmpresas();
   }
 
-  getUbicaciones() {
-    this.ubicacionService.getUbicaciones().subscribe((resp: any) => {
-      this.ubicaciones = resp;
+  getUEmpresas() {
+    this.empresaService.getEmpresas().subscribe((resp: any) => {
+      this.empresas = resp;
     });
   }
 
@@ -74,7 +70,7 @@ export class ProfileEditComponent {
       
       this.perfilForm.patchValue({
         id: profile._id,
-        ubicacionId: profile.ubicacionId?._id || null,
+        empresaId: profile.empresaId?._id || null,
         first_name: profile.first_name,
         last_name: profile.last_name,
         numdoc: profile.numdoc,
@@ -95,7 +91,7 @@ export class ProfileEditComponent {
   validarFormulario() {
     this.perfilForm = this.fb.group({
       username: ['', Validators.required],
-      ubicacionId: [''],
+      empresaId: [''],
       first_name: ['' ,Validators.required],
       last_name: ['',Validators.required],
       numdoc: ['',Validators.required],
@@ -116,7 +112,7 @@ export class ProfileEditComponent {
     // Also reset default values if needed
     this.perfilForm.patchValue({
       username: null,
-      ubicacionId: null,
+      empresaId: null,
       first_name: null,
       last_name: null,
       numdoc: null,

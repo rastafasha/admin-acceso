@@ -11,7 +11,6 @@ import { ProjectListComponent } from './project/project-list/project-list.compon
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { EmpListComponent } from './conf/empresa/emp-list/emp-list.component';
-import { UbicListComponent } from './conf/ubicacion/ubic-list/ubic-list.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { ProfileEditComponent } from './users/profile-edit/profile-edit.component';
 // import { CondicionesComponent } from './condiciones/condiciones.component';
@@ -43,10 +42,7 @@ const childRoutes: Routes = [
     { path: 'project/edit/:id', component: ProjectEditComponent, data:{title:'Editar Proyecto'} },
     
     { path: 'empresas', component: EmpListComponent, data:{title:'Empresa'} },
-    { path: 'ubicaciones', component: UbicListComponent, data:{title:'Ubicaciones'} },
     
-    
-  
     //user
     { path: 'users', component: UsersComponent, data:{title:'Usuarios'} },
     { path: 'profile', component: ProfileComponent, data:{title:'Perfil'} },

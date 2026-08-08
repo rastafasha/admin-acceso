@@ -93,15 +93,15 @@
 
                             </div>
                             <div class="col-xs-12 col-md-4 ">
-                                <label>ubicacion<span class="required">*</span></label>
+                                <label>Empresa/Con.Residencial<span class="required">*</span></label>
                                 <div class="input-group">
-                                    <select class="form-control" formControlName="ubicacionId">
+                                    <select class="form-control" formControlName="empresaId">
                                         <option value="">Seleccione</option>
-                                        <option *ngFor="let data of ubicaciones" [value]="data._id">
-                                            {{data.numero_identificador}}
+                                        <option *ngFor="let data of empresas" [value]="data._id">
+                                            {{data.nombre}}
                                         </option>
                                     </select>
-                                    <div *ngIf="perfilForm.get('ubicacionId')?.touched && perfilForm.get('ubicacionId')?.errors?.['required']"
+                                    <div *ngIf="perfilForm.get('empresaId')?.touched && perfilForm.get('empresaId')?.errors?.['required']"
                                         class="text-danger">Campo Requerido</div>
                                 </div>
                             </div>

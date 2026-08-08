@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class EmpListComponent {
   @Input() displaycomponent: string = 'block';
-  title = "Empresas"
+  title = "Empresa/Conjunto Residencial"
   empresas: Empresa;
   user: User;
   p: number = 1;

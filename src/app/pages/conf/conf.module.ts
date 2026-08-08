@@ -14,8 +14,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { EmpListComponent } from './empresa/emp-list/emp-list.component';
 import { EmpEditComponent } from './empresa/emp-edit/emp-edit.component';
-import { UbicEditComponent } from './ubicacion/ubic-edit/ubic-edit.component';
-import { UbicListComponent } from './ubicacion/ubic-list/ubic-list.component';
 
 @NgModule({
     declarations: [
@@ -23,16 +21,12 @@ import { UbicListComponent } from './ubicacion/ubic-list/ubic-list.component';
         RolesViewComponent,
         EmpListComponent,
         EmpEditComponent,
-        UbicEditComponent,
-        UbicListComponent
     ],
     exports: [
         ConfiguracionesComponent,
         RolesViewComponent,
         EmpListComponent,
         EmpEditComponent,
-        UbicEditComponent,
-        UbicListComponent
         // PaymentmethodEditComponent
     ], imports: [
         CommonModule,

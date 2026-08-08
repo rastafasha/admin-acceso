@@ -2,156 +2,68 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="projectModalLabel">{{title}}: {{projectSeleccionado?.name}}</h5>
+                <h5 class="modal-title" id="projectModalLabel">{{title}}: {{projectSeleccionado?.numeroCasa}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="onClose()"></button>
             </div>
             <div class="modal-body">
                 <app-loading *ngIf="isLoading"></app-loading>
                 <div class="container" *ngIf="!isLoading">
-                    <!-- Step Indicator -->
-                    <div class="step-indicator m-t-20 m-b-20">
-                        <div class="step" [ngClass]="{'active': currentStep >= 1, 'completed': currentStep > 1}">
-                            <span class="step-number">1</span>
-                            <span class="step-label">Datos</span>
-                        </div>
-                        <div class="step-line"></div>
-                        <div class="step" [ngClass]="{'active': currentStep >= 2}">
-                            <span class="step-number">2</span>
-                            <span class="step-label">Imagen</span>
-                        </div>
-                        
-                    </div>
-                    <div *ngIf="currentStep === 1">
-                        <form *ngIf="projectForm" class="form-horizontal form-material" [formGroup]="projectForm">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-4">
-                                    <label>Nombre del Proyecto <span class="required">*</span></label>
-                                    <input type="text" formControlName="title" class="form-control"  required>
-                                    <div *ngIf="projectForm.get('title')?.touched" class="text-danger">
-                                        <div *ngIf="projectForm.get('title')?.errors?.['required']">
-                                            Campo Requerido
-                                        </div>
-                                        <div *ngIf="projectForm.get('title')?.errors?.['minlength']">
-                                            Mínimo 3 Caracteres
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-xs-12 col-md-4">
-                                    <label>url del Proyecto </label>
-                                    <input type="text" formControlName="url" class="form-control" >
-                                </div>
-                                
-
-                               
-                                <div class="col-xs-12 col-md-4">
-                                    <label>popup <span class="required">*</span></label>
-                                    <input type="text" formControlName="popup" class="form-control">
-                                    <div *ngIf="projectForm.get('popup')?.touched && projectForm.get('popup')?.errors?.['required']"
-                                        class="text-danger">Campo Requerido</div>
-
-                                </div>
-                                <div class="col-xs-12 col-md-4">
-                                    <div class="form-check">
-                                        <label>isFeatured</label>
-                                        <input class="form-check-input" formControlName="isFeatured" type="checkbox"
-                                            id="flexCheckhasMenu">
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="clear"></div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-4">
-                                        <label>youtubeurl </label>
-                                        <input type="text" formControlName="youtubeurl" class="form-control">
-
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="row mb-3">
-                                <div class="col-xs-12 col-md-6">
-                                    <label>description </label>
-                                    <textarea formControlName="description" id="description"class="form-control"></textarea>
-                                </div>
-                                <div class="col-xs-12 col-md-6">
-                                    <label>introhome </label>
-                                    <textarea formControlName="introhome" id="introhome" class="form-control"></textarea>
-                                </div>
-                            </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-4">
-                                    <button (click)="handleSubmit()" class="btn btn-outline-success">
-                                        {{ projectSeleccionado ? 'Actualizar y Continuar' : 'Crear y Continuar' }}
-                                    </button>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-success waves-effect waves-light m-r-10 btn-block"
-                                        type="button" (click)="nextStep()">Siguiente</button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                    <div *ngIf="currentStep === 2">
-                        <app-loading *ngIf="cargandoImagen"></app-loading>
-                        <div *ngIf="!cargandoImagen">
-                            <label> Anexe su foto</label>
-                            <br>
-                            <div class="row">
-                                <div class="especificaciones col-xs-12" *ngIf="!projectSeleccionado">
-                                    <h4>Debe Crear un post para agregar la imagen</h4>
-                                </div>
-                                <div class="especificaciones col-xs-12 col-sm-6" *ngIf="projectSeleccionado">
-                                    <h4>Especificaciones:</h4>
-                                    <ul>
-                                        <li>Tamaño máximo: 300px X 300px</li>
-                                        <li>Peso máximo: 2 mb</li>
-                                        <li>Formato permitido: jpg, .gif, .png</li>
-                                    </ul>
-                                </div>
-                                <div class="col-xs-12 col-sm-6" *ngIf="projectSeleccionado ">
-                                    <div class="text-center">
-                                        <img *ngIf="!imgTemp " [src]="projectSeleccionado.img | imagenPipe: 'portafolios'"
-                                            class="img-responsive img-thumbnail" style="height: 150px;width: 150px;"
-                                            alt="">
-                                        <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive"
-                                            style="height: 150px;width: 150px;">
-                                        <div class="form-group ">
-
-                                        </div>
-                                    </div>
-                                    <input type="file" (change)="cambiarImagen($event.target.files[0])">
-                                    <br>
-                                    <br>
-                                    <div class="row">
-
-                                        <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()"
-                                            class="btn btn-success waves-effect waves-light m-r-10 btn-block">
-                                            <i class="fa fa-save"></i> Subir imagen
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <form *ngIf="projectForm" class="form-horizontal form-material" [formGroup]="projectForm">
                         <div class="row">
-                            <div class="col-3">
-                                <button class="btn btn-success waves-effect waves-light m-r-10 btn-block" type="button"
-                                    (click)="prevStep()">Anterior</button>
+                            <div class="col-xs-12 col-md-4">
+                                <label>numeroCasa <span class="required">*</span></label>
+                                <input type="text" formControlName="numeroCasa" class="form-control" required>
+                                <div *ngIf="projectForm.get('numeroCasa')?.touched" class="text-danger">
+                                    <div *ngIf="projectForm.get('numeroCasa')?.errors?.['required']">
+                                        Campo Requerido
+                                    </div>
+                                    <div *ngIf="projectForm.get('numeroCasa')?.errors?.['minlength']">
+                                        Mínimo 3 Caracteres
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-3">
-                                <button class="btn btn-success waves-effect waves-light m-r-10 btn-block" type="button"
-                                    (click)="nextStep3()">Siguiente</button>
+                            <div class="col-xs-12 col-md-4">
+                                <label>calleOBloque <span class="required">*</span></label>
+                                <input type="text" formControlName="calleOBloque" class="form-control" required>
+                                <div *ngIf="projectForm.get('calleOBloque')?.touched" class="text-danger">
+                                    <div *ngIf="projectForm.get('calleOBloque')?.errors?.['required']">
+                                        Campo Requerido
+                                    </div>
+                                    <div *ngIf="projectForm.get('calleOBloque')?.errors?.['minlength']">
+                                        Mínimo 3 Caracteres
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-md-4 ">
+                                <label>Empresa/Con.Residencial<span class="required">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-control" formControlName="empresaId">
+                                        <option value="">Seleccione</option>
+                                        <option *ngFor="let data of empresas" [value]="data._id">
+                                            {{data.nombre}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="projectForm.get('empresaId')?.touched && projectForm.get('empresaId')?.errors?.['required']"
+                                        class="text-danger">Campo Requerido</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-4">
+                                <button (click)="handleSubmit()" class="btn btn-outline-success">
+                                    {{ projectSeleccionado ? 'Actualizar y Continuar' : 'Crear y Continuar' }}
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    
+
+                    </form>
 
                 </div>
             </div>

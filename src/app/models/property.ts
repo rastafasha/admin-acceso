@@ -1,3 +1,4 @@
+import { Empresa } from "./empresa";
 import { User } from "./user";
 
 // Interfaz para la estructura del Vehículo
@@ -17,6 +18,7 @@ export interface Property {
   // En Angular guardamos el ID del usuario como un string.
   // Si en el backend usas .populate(), este tipo podría cambiar a la interfaz 'User'.
   propietarioId: User;   
+  empresaId: Empresa;   
   
   vehiculosPropietario: VehiculoPropietario[]; // Un arreglo basado en la interfaz de arriba
   
