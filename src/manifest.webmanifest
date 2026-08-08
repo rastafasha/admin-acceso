@@ -1,6 +1,6 @@
 {
-  "name": "Malcolm Admin",
-  "short_name": "Malcolm Admin",
+  "name": "Acceso Admin",
+  "short_name": "Acceso Admin",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

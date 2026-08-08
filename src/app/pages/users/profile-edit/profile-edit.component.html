@@ -1,0 +1,131 @@
+<div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="projectModalLabel">{{title}}: {{profileSeleccionado?.first_name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <app-loading *ngIf="isLoading"></app-loading>
+                <div class="container" *ngIf="!isLoading">
+                    <form *ngIf="perfilForm" class="form-horizontal form-material" [formGroup]="perfilForm">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-4">
+                                <label>Nombre <span class="required">*</span></label>
+                                <input type="text" formControlName="first_name" class="form-control" required>
+                                <div *ngIf="perfilForm.get('first_name')?.touched" class="text-danger">
+                                    <div *ngIf="perfilForm.get('first_name')?.errors?.['required']">
+                                        Campo Requerido
+                                    </div>
+                                    <div *ngIf="perfilForm.get('first_name')?.errors?.['minlength']">
+                                        Mínimo 3 Caracteres
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <label>Apellido <span class="required">*</span></label>
+                                <input type="text" formControlName="last_name" class="form-control" required>
+                                <div *ngIf="perfilForm.get('last_name')?.touched" class="text-danger">
+                                    <div *ngIf="perfilForm.get('last_name')?.errors?.['required']">
+                                        Campo Requerido
+                                    </div>
+                                    <div *ngIf="perfilForm.get('last_name')?.errors?.['minlength']">
+                                        Mínimo 3 Caracteres
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <label>numdoc <span class="required">*</span></label>
+                                <input type="text" formControlName="numdoc" class="form-control" required>
+                                <div *ngIf="perfilForm.get('numdoc')?.touched" class="text-danger">
+                                    <div *ngIf="perfilForm.get('numdoc')?.errors?.['required']">
+                                        Campo Requerido
+                                    </div>
+                                    <div *ngIf="perfilForm.get('numdoc')?.errors?.['minlength']">
+                                        Identificacion valida
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <label>email <span class="required">*</span></label>
+                                <input type="text" formControlName="email" class="form-control" required>
+                                <div *ngIf="perfilForm.get('email')?.touched" class="text-danger">
+                                    <div *ngIf="perfilForm.get('email')?.errors?.['required']">
+                                        Campo Requerido
+                                    </div>
+                                    <div *ngIf="perfilForm.get('email')?.errors?.['minlength']">
+                                        email valida
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xs-12 col-md-4">
+                                <label>telefono <span class="required">*</span></label>
+                                <input type="text" formControlName="telefono" class="form-control">
+                                <div *ngIf="perfilForm.get('telefono')?.touched && perfilForm.get('telefono')?.errors?.['required']"
+                                    class="text-danger">Campo Requerido</div>
+                            </div>
+                            
+                            <div class="col-xs-12 col-md-4">
+                                <label>activo</label>
+                                <select class="form-control selecttyp" formControlName="activo">
+                                    <option value="">Seleccione</option>
+                                    <option value="true">activo</option>
+                                    <option value="false">inactivo</option>
+                                </select>
+                                <div *ngIf="perfilForm.get('activo')?.touched && perfilForm.get('activo')?.errors?.['required']"
+                                    class="text-danger">Campo Requerido</div>
+
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <label>role</label>
+                                <select class="form-control selecttyp" formControlName="role">
+                                    <option value="">Seleccione</option>
+                                    <option value="PROPIETARIO">PROPIETARIO</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                    <option value="GUARDIA">GUARDIA</option>
+                                    <option value="VISITA">VISITA</option>
+                                    <option value="EMPLEADO">EMPLEADO</option>
+                                </select>
+                                <div *ngIf="perfilForm.get('role')?.touched && perfilForm.get('role')?.errors?.['required']"
+                                    class="text-danger">Campo Requerido</div>
+
+                            </div>
+                            <div class="col-xs-12 col-md-4 ">
+                                <label>ubicacion<span class="required">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-control" formControlName="ubicacionId">
+                                        <option value="">Seleccione</option>
+                                        <option *ngFor="let data of ubicaciones" [value]="data._id">
+                                            {{data.numero_identificador}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="perfilForm.get('ubicacionId')?.touched && perfilForm.get('ubicacionId')?.errors?.['required']"
+                                        class="text-danger">Campo Requerido</div>
+                                </div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <button (click)="handleSubmit()" class="btn btn-outline-success">
+                                    {{ profileSeleccionado ? 'Actualizar y Continuar' : 'Crear y Continuar' }}
+                                </button>
+                            </div>
+                            
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onClose()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

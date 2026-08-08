@@ -1,0 +1,38 @@
+<div class="modal fade" id="viewUser" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel">{{title}}: {{userSeleccionado?.first_name}} {{userSeleccionado?.last_name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                <app-loading *ngIf="isLoading"></app-loading>
+                <div class="container" *ngIf="!isLoading">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img [src]="(userSeleccionado?.img||'') | imagenPipe:'usuarios'" alt="" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
+                        </div>
+                        <div class="col-md-8">
+                            <h5>Información del Usuario</h5>
+                            <p><strong>Nombre:</strong> {{userSeleccionado?.first_name}} {{userSeleccionado?.last_name}}</p>
+                            <p><strong>Email:</strong> {{userSeleccionado?.email}}</p>
+                            <p><strong>Role:</strong> {{userSeleccionado?.role}}</p>
+                            <p><strong>numdoc:</strong> {{userSeleccionado?.numdoc}}</p>
+                            <p><strong>telefono:</strong> {{userSeleccionado?.telefono}}</p>
+                             <span class="badge bg-success" *ngIf="userSeleccionado?.activo === true">Activo</span>
+                                        <span class="badge bg-danger"
+                                            *ngIf="userSeleccionado?.activo === false">Inactivo</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onClose()">Cerrar</button>
+            </div> -->
+        </div>
+    </div>
+</div>

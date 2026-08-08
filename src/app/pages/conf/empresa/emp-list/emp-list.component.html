@@ -1,0 +1,109 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+
+    <div class="col-xs-12">
+        <app-backButtn [displaycomponent]="displaycomponent" [title]="title"></app-backButtn>
+
+
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+
+
+            <!-- Recent Pagos -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-11 col-sm-11">
+                        <!-- buscador -->
+                        <form class="form-horizontal">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                        placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                        class="form-control border-0 bg-light">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary"
+                                            (click)="search()" name="submit" data-toggle="tooltip"
+                                            title="mostrar todos"><i class="fa fa-search"></i></button>
+                                        <a href="javascript:;" (click)="PageSize()"
+                                            class="btn btn-primary doctor-refresh ms-2 "><i
+                                                class="fa fa-sync"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- buscador -->
+                    </div>
+                    <div class="col-xs-1 col-sm-1" [style.display]="displaycomponent">
+                        <div class="text-right">
+                            <button class="btn btn-primary" (click)="openCrearModal()" href="javascript:void(0)"
+                                data-bs-toggle="modal" data-bs-target="#editEmpresa">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body">
+                        <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Status</th>
+                                    <th>Tipo</th>
+                                    <th>Pais</th>
+                                    <th>Creado</th>
+                                    <th class="text-nowrap">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let empresa of empresas |  paginate: { itemsPerPage: count, currentPage: p }">
+
+                                    <td>{{empresa.nombre}}</td>
+                                    <td>
+                                        <span class="badge bg-warning" *ngIf="empresa.tipo === 'EMPRESA'">Empresa</span>
+                                        <span class="badge bg-primary"
+                                            *ngIf="empresa.tipo === 'RESIDENCIAL'">Residencial</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success" *ngIf="empresa.status === 'ACTIVO'">Activo</span>
+                                        <span class="badge bg-danger"
+                                            *ngIf="empresa.status === 'SUSPENDIDO'">Suspendido</span>
+                                    </td>
+                                    <td>{{empresa.pais.code}}</td>
+                                    <td>{{empresa.createdAt | date:'MMM d, y, h:mm:ss a'}} </td>
+                                    <td class="text-nowrap text-center">
+
+                                        <a href="javascript:void(0)" (click)="openEditModal(empresa)"
+                                            data-bs-toggle="modal" data-bs-target="#editEmpresa" class="cursor"
+                                            data-toggle="tooltip" data-original-title="Edit">
+                                            <i class="fa fa-edit text-success" style="font-size: 18px;"></i>
+                                        </a>
+                                        <a (click)="eliminarEmpresa(empresa._id)" class="cursor" data-toggle="tooltip"
+                                            data-original-title="Borrar">
+                                            <i class="fa fa-trash text-danger"
+                                                style="font-size: 18px; margin-left: 10px; margin-right: 10px;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Recent Pagos -->
+
+        </section>
+    </div>
+
+</div>
+<!--/main-->
+<app-emp-edit [empresaSeleccionado]="selectedEmpresa" (refreshProjectList)="getEmpresas()"
+    (closeModal)="onCloseModal()"></app-emp-edit>

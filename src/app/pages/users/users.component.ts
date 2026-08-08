@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
 import { BusquedasService } from 'src/app/services/busqueda.service';
 
 @Component({
-    selector: 'app-users',
-    templateUrl: './users.component.html',
-    styleUrls: ['./users.component.css'],
-    standalone: false
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css'],
+  standalone: false
 })
 export class UsersComponent implements OnInit {
   title = "Usuarios"
@@ -22,6 +22,8 @@ export class UsersComponent implements OnInit {
   usersCount = 0;
   usuarios: any;
   user: User;
+  selectedUser: User;
+  selectedProfile: User;
   roles;
 
   p: number = 1;
@@ -32,7 +34,7 @@ export class UsersComponent implements OnInit {
 
 
   ServerUrl = environment.apiUrl;
-  query:string ='';
+  query: string = '';
 
   constructor(
     private userService: UserService,
@@ -40,13 +42,13 @@ export class UsersComponent implements OnInit {
     private location: Location,
     private http: HttpClient,
     handler: HttpBackend,
-    
-    ) {
-      this.http = new HttpClient(handler);
-    }
+
+  ) {
+    this.http = new HttpClient(handler);
+  }
 
   ngOnInit(): void {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.closeMenu();
     this.getUsers();
     this.getUser();
@@ -58,7 +60,7 @@ export class UsersComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsuarios().subscribe(
-      res =>{
+      res => {
         this.usuarios = res;
         error => this.error = error;
       }
@@ -70,7 +72,7 @@ export class UsersComponent implements OnInit {
   }
 
 
-  eliminarUser(user:User){
+  eliminarUser(user: User) {
     Swal.fire({
       title: 'Estas Seguro?',
       text: "No podras recuperarlo!",
@@ -82,10 +84,10 @@ export class UsersComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.deleteById(user).subscribe(
-          response =>{
+          response => {
             this.getUsers();
           }
-          );
+        );
         Swal.fire(
           'Borrado!',
           'El Archivo fue borrado.',
@@ -100,31 +102,49 @@ export class UsersComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
-  closeMenu(){
+  closeMenu() {
     var menuLateral = document.getElementsByClassName("sidebar");
-      for (var i = 0; i<menuLateral.length; i++) {
-         menuLateral[i].classList.remove("active");
+    for (var i = 0; i < menuLateral.length; i++) {
+      menuLateral[i].classList.remove("active");
 
-      }
+    }
   }
 
   search() {// funciona, devuelve la busqueda
 
-    if(!this.query){
+    if (!this.query) {
       this.ngOnInit();
-    }else{
+    } else {
       return this.busquedasService.searchGlobal(this.query).subscribe(
-        (resp:any) => {
+        (resp: any) => {
           this.usuarios = resp.usuarios;
-          
+
         }
       )
     }
-    
-        
+
+
   }
 
- 
+  openViewModal(user: User): void {
+    this.selectedUser = user;
+  }
+
+  onCloseModalView(): void {
+    this.selectedUser = null;
+  }
+
+  openCrearModal(): void {
+    this.selectedProfile = null;
+  }
+  openEditModal(user: User): void {
+    this.selectedProfile = user;
+  }
+
+  onCloseModal(): void {
+    this.selectedProfile = null;
+  }
+
 
 
 

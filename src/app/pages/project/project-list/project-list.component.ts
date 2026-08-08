@@ -21,7 +21,7 @@ export class ProjectListComponent implements OnInit {
   selectedType: string = '';
   selectedEstado: string = '';
 
-  title: string = 'Proyectos';
+  title: string = 'Propiedades';
   projects: Property[];
   query: string = '';
   p: number = 1;

@@ -26,12 +26,16 @@ import { UsersComponent } from './users/users.component';
 
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { ProjectModule } from './project/project.module';
+import { ProfileComponent } from './users/profile/profile.component';
+import { ProfileEditComponent } from './users/profile-edit/profile-edit.component';
 
 @NgModule({ declarations: [
         DashboardComponent,
         DashboardAdminComponent,
         PagesComponent,
         UsersComponent,
+        ProfileComponent,
+        ProfileEditComponent,
         DashboardUserComponent,
         PagesComponent,
         BusquedaComponent
@@ -41,6 +45,8 @@ import { ProjectModule } from './project/project.module';
         DashboardAdminComponent,
         PagesComponent,
         UsersComponent,
+         ProfileComponent,
+        ProfileEditComponent,
         DashboardUserComponent,
         PagesComponent,
         BusquedaComponent

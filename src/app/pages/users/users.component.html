@@ -50,8 +50,8 @@
                                     <thead>
                                         <tr>
 
-                                            <!-- <th>Imagen</th> -->
-                                            <th>Usuario</th>
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
                                             <th>Email</th>
                                             <th>Role</th>
                                             <th>Auth</th>
@@ -61,8 +61,13 @@
                                     <tbody>
                                         <!-- <tr *ngFor="let user of usuarios |  paginate: { itemsPerPage: count, currentPage: p }"> -->
                                         <tr *ngFor="let user of usuarios ">
-                                        
-                                            <td><a [routerLink]="['/dashboard/user/', user.uid]">{{user.username}}</a> </td>
+                                            
+                                            <td>
+                                                <a href="javascript:void(0)" (click)="openViewModal(user)" data-bs-toggle="modal" data-bs-target="#viewUser">
+                                                    <img [src]="(user?.img||'') | imagenPipe:'usuarios'" alt="" style="height: 50px; width: 50px;"> 
+                                                </a> 
+                                            </td>
+                                            <td><a href="javascript:void(0)" (click)="openViewModal(user)" data-bs-toggle="modal" data-bs-target="#viewUser">{{user.first_name}}</a> </td>
                                             <td>{{user.email}}</td>
                                             <td>
                                                 <!-- {{user.role }}  -->
@@ -78,7 +83,7 @@
 
                                             <td class="text-nowrap text-center">
 
-                                                <a [routerLink]="['/dashboard/user/edit', user.uid]" class="cursor" data-toggle="tooltip" data-original-title="Edit">
+                                                <a href="javascript:void(0)" (click)="openEditModal(user)" data-bs-toggle="modal" data-bs-target="#editProfile" class="cursor" data-toggle="tooltip" data-original-title="Edit">
                                                     <div class="btn btn-success"><i class="fa fa-edit"></i></div>
                                                 </a>
                                                 <a (click)="eliminarUser(user.uid)" class="cursor" data-toggle="tooltip" data-original-title="Borrar">
@@ -110,3 +115,6 @@
 
 </div>
 <!--/main-->
+<app-profile [userSeleccionado]="selectedUser" (refreshProjectList)="getUsers()" (closeModal)="onCloseModalView()"></app-profile>
+<app-profile-edit [profileSeleccionado]="selectedProfile" (refreshProjectList)="getUsers()"
+    (closeModal)="onCloseModal()"></app-profile-edit>

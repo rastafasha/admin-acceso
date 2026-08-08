@@ -83,7 +83,6 @@ export class ProjectEditComponent implements OnInit, OnChanges {
         popup: project.popup,
         slug: project.slug,
         url: project.url,
-        category: project.category._id,
         youtubeurl: project.youtubeurl,
         isFeatured: project.isFeatured,
         status: project.status,

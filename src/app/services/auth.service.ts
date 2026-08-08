@@ -31,7 +31,7 @@ export class AuthService {
     return localStorage.getItem('token') || '';
   }
 
-  get role(): 'PROPIETARIO' | 'ADMIN' | 'GUARDIA' | 'VISITA' {
+  get role(): 'PROPIETARIO' | 'ADMIN' | 'GUARDIA' | 'VISITA'|'EMPLEADO' | undefined {
     return this.usuario.role;
   }
 
@@ -66,12 +66,13 @@ export class AuthService {
         const userData = JSON.parse(userStr);
         // Create User instance from parsed data (match JSON shape)
         this.usuario = new User(
-          userData.username || '',
+          userData.ubicacionId || '',
           userData.first_name || '',
           userData.last_name || '',
           userData.numdoc || '',
           userData.telefono || '',
           userData.email || '',
+          userData.activo || false,
           userData.terminos || false,
           undefined,  // password not stored
           userData.google || false,
@@ -155,9 +156,9 @@ crearUsuario(formData: RegisterForm){
       }
     }).pipe(
       map((resp: any) => {
-        const { first_name, last_name, username, numdoc, telefono, email, google, role, uid } = resp.usuario;
+        const { first_name, last_name, username,  activo, numdoc, telefono, email,  ubicacionId, google, role, uid } = resp.usuario;
 
-        this.usuario = new User(first_name, last_name,username, numdoc, telefono, email, !!google, undefined, !!google, role, uid);
+        this.usuario = new User(first_name, last_name,username,  activo, numdoc, telefono, email, ubicacionId,  undefined, !!google, role, uid);
         this.guardarLocalStorage(resp.token, resp.usuario);
         return true;
       }),

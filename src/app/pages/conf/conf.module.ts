@@ -12,21 +12,39 @@ import { RolesViewComponent } from './roles/roles-view/roles-view.component';
 // paginacion
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
+import { EmpListComponent } from './empresa/emp-list/emp-list.component';
+import { EmpEditComponent } from './empresa/emp-edit/emp-edit.component';
+import { UbicEditComponent } from './ubicacion/ubic-edit/ubic-edit.component';
+import { UbicListComponent } from './ubicacion/ubic-list/ubic-list.component';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         ConfiguracionesComponent,
         RolesViewComponent,
+        EmpListComponent,
+        EmpEditComponent,
+        UbicEditComponent,
+        UbicListComponent
     ],
     exports: [
         ConfiguracionesComponent,
         RolesViewComponent,
+        EmpListComponent,
+        EmpEditComponent,
+        UbicEditComponent,
+        UbicListComponent
         // PaymentmethodEditComponent
-    ], imports: [CommonModule,
+    ], imports: [
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
         SharedModule,
         PipesModule,
         BrowserAnimationsModule,
-        NgxPaginationModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        NgxPaginationModule,
+
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class ConfModule { }

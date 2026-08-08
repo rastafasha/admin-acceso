@@ -30,6 +30,8 @@ export class BusquedasService {
       (user) =>
         new User(
           user.username,
+          user.ubicacionId,
+          user.activo,
           user.email,
           user.img,
           user.google,
